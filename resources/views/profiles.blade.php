@@ -11,7 +11,7 @@
                 <div class="flex p-0 pb-6 pt-6 md:p-6 text-gray-900 dark:text-gray-100">
                     <div class="m-auto mr-2 sm:mr-7 w-2/5">
                         <div class="w-20 md:w-36 h-20 md:h-36 flex justify-center items-center">
-                            <img src="/jpg/mypic.jpg" class="w-full rounded-full" />
+                            <img src="/jpg/mypic.jpg" class="w-full rounded-full"/>
                         </div>
                     </div>
                     <div class="w-3/5">
@@ -23,7 +23,7 @@
                                 </x-primary-button>
                             </div>
                             <div class="">
-                                <x-secondary-button class="bggra">
+                                <x-secondary-button class="">
                                     {{ __('Message') }}
                                 </x-secondary-button>
                             </div>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="flex flex-nowrap justify-between items-center max-w-72">
                             <div class="flex flex-col sm:flex-row text-center sm:text-left">
-                                <p class="font-semibold sm:pr-1">50</p>
+                                <p class="font-semibold sm:pr-1">{{ $user->posts->count() }}</p>
                                 <p>posts</p>
                             </div>
                             <div class="flex flex-col sm:flex-row text-center sm:text-left">
@@ -67,6 +67,15 @@
                         </x-secondary-button>
                     </div>
                 </div>
+            </div>
+            <div class="w-full max-w-full flex-wrap flex  ">
+                @foreach($user->posts as $post)
+                    <div class="w-1/3 p-2">
+                        <a href="/p/{{$post->id }}">
+                            <img src="/storage/{{$post->image}}" class="w-full">
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
