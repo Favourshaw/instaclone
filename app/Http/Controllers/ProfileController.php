@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -20,6 +21,32 @@ class ProfileController extends Controller
         $user = User::findOrFail($userId);
 
         return view('profiles', ['user' => $user]);
+    }
+
+
+    //user profile information update
+    public function info(User $user)
+    {
+
+        // Authorize the action using Gate
+        Gate::authorize('save', $user->profile);
+
+        return view('profile.info', compact('user'));
+    }
+
+    public function save(User $user)
+    {
+        Gate::authorize('save', $user->profile);
+        $data = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'url' => 'url',
+            'image' => '',
+        ]);
+
+        Auth::user()->profile->update($data);
+
+        return Redirect::back()->with('success', 'Profile updated.');
     }
 
     public function edit(Request $request): View

@@ -15,12 +15,19 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    //Profile
+    Route::get('/profiles/{user}/info', [ProfileController::class, 'info'])->name('profile.info');
+    Route::patch('/profiles/{user}', [ProfileController::class, 'save'])->name('profile.save');
+
+    //name, email ans password / delete account
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //Posts
     Route::get('/p/create', [PostController::class, 'create']);
-    Route::get('/p/{post}', [PostController::class, 'show']);
     Route::post('/p', [PostController::class, 'store']);
+    Route::get('/p/{post}', [PostController::class, 'show']);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

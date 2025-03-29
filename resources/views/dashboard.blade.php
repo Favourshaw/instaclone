@@ -50,9 +50,10 @@
                     </div>
 
                 </div>
+
                 <div class="w-3/5 text-white md:ml-auto px-0 md:px-6 -mt-1 md:-mt-12">
                     <div>{{ Auth::user()->name }}</div>
-                    <div>We are a digital comapant located in Nigeria.</div>
+                    <div>{{ Auth::user()->profile->description ?? 'No description yet' }}</div>
                 </div>
                 <div class="w-full flex md:hidden flex-row flex-nowrap gap-2">
                     <div class="w-1/2">
