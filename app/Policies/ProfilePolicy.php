@@ -35,9 +35,9 @@ class ProfilePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function save(User $user, Profile $profile): bool
+    public function save(User $user, Profile $profile)
     {
-        return $user->id == $profile->user_id;
+        return $user->id === $profile->user_id;
     }
 
     /**

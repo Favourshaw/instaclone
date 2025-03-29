@@ -11,15 +11,15 @@
                 <div class="flex p-0 pb-6 pt-6 md:p-6 text-gray-900 dark:text-gray-100">
                     <div class="m-auto mr-2 sm:mr-7 w-2/5">
                         <div class="w-20 md:w-36 h-20 md:h-36 flex justify-center items-center">
-                            <img src="/jpg/mypic.jpg" class="w-full rounded-full"/>
+                            <img src="/storage/{{  $user->profile->image }}" class="w-full rounded-full"/>
                         </div>
-                        <a href="/profile/{{ Auth::user()->id }}/edit" :active="/profile/{{ Auth::user()->id }}/edit">
+                        <a href="/profile/{{ $user->id }}/edit" :active="/profile/{{ $user->id }}/edit">
                             {{ __('Profile') }}
                         </a>
                     </div>
                     <div class="w-3/5">
                         <div class="hidden md:flex flex-row items-center justify-start gap-3">
-                            <div>{{ Auth::user()->username }}</div>
+                            <div>{{ $user->username }}</div>
                             <div class="">
                                 <x-primary-button class="">
                                     {{ __('Follow') }}
@@ -54,9 +54,9 @@
 
                 </div>
                 <div class="w-3/5 text-white md:ml-auto px-0 md:px-1 -mt-1 md:-mt-12">
-                    <div>{{ Auth::user()->username }}</div>
-                    <div>{{Auth::user()->profile->title}}</div>
-                    <div>{{Auth::user()->profile->url}}</div>
+                    <div>{{ $user->username }}</div>
+                    <div>{{$user->profile->title}}</div>
+                    <div>{{$user->profile->url}}</div>
                 </div>
                 <div class="w-full flex md:hidden flex-row flex-nowrap gap-2">
                     <div class="w-1/2">

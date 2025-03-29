@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class ProfileController extends Controller
 {
@@ -34,21 +36,47 @@ class ProfileController extends Controller
         return view('profile.info', compact('user'));
     }
 
+
     public function save(User $user)
     {
+
+        // Ensure the user has a profile
+        if (!$user->profile) {
+            $user->profile()->create([]); // Create empty profile if none exists
+        }
+
+        // Authorize the action
         Gate::authorize('save', $user->profile);
+
+        // Validate input data
         $data = request()->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'url' => 'url',
-            'image' => '',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'url' => 'nullable|url|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        Auth::user()->profile->update($data);
+        // Handle image upload if present
+        if (request()->hasFile('image')) {
+            $imagePath = request('image')->store('uploads', 'public');
 
-        return Redirect::back()->with('success', 'Profile updated.');
+            // Create image manager instance
+            $manager = new ImageManager(new Driver());
+
+            // Process the image
+            $image = $manager->read(storage_path('app/public/' . $imagePath));
+            $image->cover(width: 1000, height: 1000 );
+            $image->save(storage_path('app/public/' . $imagePath));
+        }
+
+        // Update profile
+        $user->profile->update(array_merge(
+            $data,
+            ['image' => $imagePath]
+        ));
+
+        return Redirect::back()->with('success', 'Profile updated successfully.');
     }
-
     public function edit(Request $request): View
     {
         return view('profile.edit', [

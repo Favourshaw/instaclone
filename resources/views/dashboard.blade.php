@@ -11,7 +11,7 @@
                 <div class="flex p-0 pb-6 pt-6 md:p-6 text-gray-900 dark:text-gray-100">
                     <div class="m-auto mr-2 sm:mr-7 w-2/5">
                         <div class="w-20 md:w-36 h-20 md:h-36 flex justify-center items-center">
-                        <img src="jpg/mypic.jpg" class="w-full rounded-full" />
+                        <img src="/storage/{{  Auth::user()->profile->image }}" class="w-full rounded-full" />
                         </div>
                     </div>
                     <div class="w-3/5">
@@ -53,7 +53,7 @@
 
                 <div class="w-3/5 text-white md:ml-auto px-0 md:px-6 -mt-1 md:-mt-12">
                     <div>{{ Auth::user()->name }}</div>
-                    <div>{{ Auth::user()->profile->description ?? 'No description yet' }}</div>
+                    <div>{{ Auth::user()->profile->description }}</div>
                 </div>
                 <div class="w-full flex md:hidden flex-row flex-nowrap gap-2">
                     <div class="w-1/2">
