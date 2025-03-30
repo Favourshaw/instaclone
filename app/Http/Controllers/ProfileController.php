@@ -67,12 +67,14 @@ class ProfileController extends Controller
             $image = $manager->read(storage_path('app/public/' . $imagePath));
             $image->cover(width: 1000, height: 1000 );
             $image->save(storage_path('app/public/' . $imagePath));
+
+            $imageArray = ['image' => $imagePath];
         }
 
         // Update profile
         $user->profile->update(array_merge(
             $data,
-            ['image' => $imagePath]
+            $imageArray ?? []
         ));
 
         return Redirect::back()->with('success', 'Profile updated successfully.');

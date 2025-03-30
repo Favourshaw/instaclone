@@ -13,13 +13,15 @@
                         <div class="w-full ">
                             <div class="flex flex-row items-center gap-3 border-b border-spacing-1 p-4">
                                 <div>
-                                    <img src="/storage/{{ $post->user->profile->image }}" class="w-full rounded-full
+                                    <img src="{{ $post->user->profile->profileImage() }}" class="w-full
+                                    rounded-full
                                     max-w-[40px]"/>
                                 </div>
                                 <div>
                                     <a href="/profiles/{{ $post->user->id }}">
                                         <span>{{$post->user->username}}</span></a>
                                 </div>
+                                <a href="#" class="text-blue-600">Follow</a>
 
 
                             </div>

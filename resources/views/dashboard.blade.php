@@ -11,7 +11,7 @@
                 <div class="flex p-0 pb-6 pt-6 md:p-6 text-gray-900 dark:text-gray-100">
                     <div class="m-auto mr-2 sm:mr-7 w-2/5">
                         <div class="w-20 md:w-36 h-20 md:h-36 flex justify-center items-center">
-                        <img src="/storage/{{  Auth::user()->profile->image }}" class="w-full rounded-full" />
+                        <img src="{{  Auth::user()->profile->profileImage() }}" class="w-full rounded-full" />
                         </div>
                     </div>
                     <div class="w-3/5">
