@@ -17,40 +17,7 @@
                             {{ __('Profile') }}
                         </a>
                     </div>
-                    <div class="w-3/5">
-                        <div class="hidden md:flex flex-row items-center justify-start gap-3">
-                            <div>{{ $user->username }}</div>
-                            <div class="">
-                                <x-primary-button class="">
-                                    {{ __('Follow') }}
-                                </x-primary-button>
-                            </div>
-                            <div class="">
-                                <x-secondary-button class="">
-                                    {{ __('Message') }}
-                                </x-secondary-button>
-                            </div>
-                            <div>
-                                ---
-                            </div>
-                        </div>
-                        <div class="flex flex-nowrap justify-between items-center max-w-72">
-                            <div class="flex flex-col sm:flex-row text-center sm:text-left">
-                                <p class="font-semibold sm:pr-1">{{ $user->posts->count() }}</p>
-                                <p>posts</p>
-                            </div>
-                            <div class="flex flex-col sm:flex-row text-center sm:text-left">
-                                <p class="font-semibold sm:pr-1">50</p>
-                                <p>posts</p>
-                            </div>
-
-                            <div class="flex flex-col sm:flex-row text-center sm:text-left">
-                                <p class="font-semibold sm:pr-1">50</p>
-                                <p>posts</p>
-                            </div>
-
-                        </div>
-                    </div>
+                    @livewire('like-button', ['profile' => $user->profile])
 
                 </div>
                 <div class="w-3/5 text-white md:ml-auto px-0 md:px-1 -mt-1 md:-mt-12">

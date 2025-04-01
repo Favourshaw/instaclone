@@ -63,4 +63,39 @@ class ProfilePolicy
     {
         return false;
     }
+
+    public function follow(User $user, Profile $profile): bool
+    {
+        // Can't follow your own profile
+        if ($user->id === $profile->user_id) {
+            return false;
+        }
+
+        // Can't follow if already following (for toggle operations)
+        if ($user->isFollowingProfile($profile)) {
+            return true; // Allow unfollow
+        }
+
+        // Additional business logic
+        return !$profile->blockedUsers()->where('user_id', $user->id)->exists();
+    }
+
+    public function viewFollowers(User $user, Profile $profile): bool
+    {
+        if ($profile->hide_followers) {
+            return $user->id === $profile->user_id;
+        }
+
+        return true;
+    }
+
+
+    public function viewFollowing(User $user, Profile $profile): bool
+    {
+        if ($profile->hide_following) {
+            return $user->id === $profile->user_id;
+        }
+
+        return true;
+    }
 }

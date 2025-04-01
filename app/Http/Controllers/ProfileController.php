@@ -27,14 +27,25 @@ class ProfileController extends Controller
 
 
     //user profile information update
+
     public function info(User $user)
     {
-
         // Authorize the action using Gate
         Gate::authorize('save', $user->profile);
 
-        return view('profile.info', compact('user'));
+        // Get followers count (assuming you have similar method in Profile model)
+        $followersCount = $user->profile->cachedFollowersCount();
+
+        // Check if current user is following this profile
+        $isFollowing = Auth::check() ? Auth::user()->isFollowingProfile($user->profile) : false;
+
+        return view('profile.info', [
+            'profile' => $user->profile,
+            'followersCount' => $user->profile->cachedFollowersCount(),
+            'isFollowing' => auth()->check() && auth()->user()->isFollowingProfile($user->profile)
+        ]);
     }
+
 
 
     public function save(User $user)

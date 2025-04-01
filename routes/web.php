@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/profiles/{user}', [ProfileController::class, 'index'])->name('profiles.show');
-
+Route::view('/login', 'auth.login')->name('login');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
