@@ -46,6 +46,7 @@
                 </header>
             @endisset-->
 
+            
             <!-- Page Content -->
             <main class="mx-auto max-w-[935px]">
                 {{ $slot }}
